@@ -20,34 +20,6 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## OpenCode Local Skill Prototype
-
-This repo also contains an internal prototype for routing a plain-text request into a local OpenCode server.
-
-Start local OpenCode first:
-
-```bash
-opencode-claude serve --hostname 127.0.0.1 --port 4096
-```
-
-Install repo dependencies:
-
-```bash
-npm install
-```
-
-Invoke the local skill script manually:
-
-```bash
-node skills/opencode-local/scripts/invoke-opencode-local.mjs \
-  --conversation-id "demo-chat" \
-  --user-id "demo-user" \
-  --directory "$(pwd)" \
-  --text "Reply with exactly OK"
-```
-
-This V1 prototype is local-only and returns only the final plain-text reply.
-
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
