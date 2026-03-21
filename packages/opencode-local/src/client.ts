@@ -1,5 +1,16 @@
 export type OpencodeSession = {
   id: string
+  directory?: string
+  title?: string
+  time?: {
+    created?: number
+    updated?: number
+  }
+  summary?: {
+    files?: number
+    additions?: number
+    deletions?: number
+  }
 }
 
 export type OpencodeMessage = {
@@ -49,6 +60,15 @@ async function request<T>(url: string, init: RequestInit, directory?: string): P
   return (await response.json()) as T
 }
 
+function withQuery(url: string, params: Record<string, string | number | undefined>) {
+  const search = new URLSearchParams()
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined) search.set(key, String(value))
+  }
+  const query = search.toString()
+  return query.length > 0 ? `${url}?${query}` : url
+}
+
 export async function createSession(baseUrl: string, directory?: string): Promise<OpencodeSession> {
   return request<OpencodeSession>(`${baseUrl}/session`, {
     method: "POST",
@@ -77,6 +97,18 @@ export async function sendMessage(
 
 export async function listMessages(baseUrl: string, sessionId: string, directory?: string): Promise<OpencodeMessage[]> {
   return request<OpencodeMessage[]>(`${baseUrl}/session/${sessionId}/message`, {
+    method: "GET",
+  }, directory)
+}
+
+export async function listSessions(baseUrl: string, directory?: string, limit?: number): Promise<OpencodeSession[]> {
+  return request<OpencodeSession[]>(withQuery(`${baseUrl}/session`, { limit }), {
+    method: "GET",
+  }, directory)
+}
+
+export async function getSession(baseUrl: string, sessionId: string, directory?: string): Promise<OpencodeSession> {
+  return request<OpencodeSession>(`${baseUrl}/session/${sessionId}`, {
     method: "GET",
   }, directory)
 }
