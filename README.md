@@ -56,7 +56,7 @@ npm run typecheck
 Recommended install command:
 
 ```bash
-npx @zhouhoulai/opencode-local-installer install
+npx @xinbao66/opencode-local-installer install
 ```
 
 This writes the runtime extension into:
