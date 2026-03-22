@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "tsx --test packages/opencode-local/test/*.test.ts packages/opencode-local-plugin/test/*.test.ts",
+    "test": "tsx --test packages/opencode-local/test/*.test.ts packages/opencode-local-plugin/test/*.test.ts packages/opencode-local-installer/test/*.test.ts",
     "typecheck": "tsc -p packages/opencode-local/tsconfig.json --noEmit && tsc -p packages/opencode-local-plugin/tsconfig.json --noEmit"
   },
   "devDependencies": {

@@ -1,0 +1,40 @@
+{
+  "id": "opencode-local-plugin",
+  "name": "OpenCode Local",
+  "description": "Bridge local OpenCode sessions into OpenClaw as an optional agent tool.",
+  "version": "0.1.1",
+  "skills": [
+    "./skills"
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "enabled": {
+        "type": "boolean"
+      },
+      "baseUrl": {
+        "type": "string"
+      },
+      "sessionStorePath": {
+        "type": "string"
+      },
+      "defaultDirectory": {
+        "type": "string"
+      }
+    }
+  },
+  "uiHints": {
+    "baseUrl": {
+      "label": "OpenCode Base URL"
+    },
+    "sessionStorePath": {
+      "label": "Session Store Path",
+      "advanced": true
+    },
+    "defaultDirectory": {
+      "label": "Default Workspace",
+      "advanced": true
+    }
+  }
+}

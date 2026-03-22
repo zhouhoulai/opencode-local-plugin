@@ -8,6 +8,8 @@ This repository contains a single OpenClaw integration for driving a local OpenC
   OpenClaw plugin that exposes OpenCode-backed tools.
 - `packages/opencode-local`
   Local client, session mapping, and polling logic shared by the plugin.
+- `packages/opencode-local-installer`
+  npm installer package that assembles a ready-to-copy OpenClaw extension.
 
 ## Exposed Tools
 
@@ -51,7 +53,25 @@ npm run typecheck
 
 ## Runtime Install
 
-Copy or sync `packages/opencode-local-plugin` into:
+Recommended install command:
+
+```bash
+npx @zhouhoulai/opencode-local-installer install
+```
+
+This writes the runtime extension into:
+
+```text
+~/.openclaw/extensions/opencode-local-plugin
+```
+
+The bundled runtime template shipped for npm distribution lives at:
+
+```text
+packages/opencode-local-installer/template/opencode-local-plugin
+```
+
+If you want to install manually, copy or sync the assembled extension into:
 
 ```text
 ~/.openclaw/extensions/opencode-local-plugin

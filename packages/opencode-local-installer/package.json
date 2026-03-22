@@ -1,0 +1,16 @@
+{
+  "name": "@zhouhoulai/opencode-local-installer",
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "bin",
+    "src",
+    "template"
+  ],
+  "bin": {
+    "opencode-local-installer": "./bin/opencode-local-installer.js"
+  },
+  "exports": {
+    ".": "./src/install.js"
+  }
+}
