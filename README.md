@@ -1,64 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpenCode Local Plugin
 
-## Getting Started
+This repository contains a single OpenClaw integration for driving a local OpenCode server.
 
-First, run the development server:
+## Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- `packages/opencode-local-plugin`
+  OpenClaw plugin that exposes OpenCode-backed tools.
+- `packages/opencode-local`
+  Local client, session mapping, and polling logic shared by the plugin.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Exposed Tools
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `opencode_execute`
+  Send a prompt into the current OpenCode session for the current chat.
+- `opencode_sessions_list`
+  List recent OpenCode sessions for a workspace as a numbered list.
+- `opencode_session_attach`
+  Attach the current chat to a listed OpenCode session by selection.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Prerequisites
 
-## OpenCode Local Skill Prototype
-
-This repo also contains an internal prototype for routing a plain-text request into a local OpenCode server.
-
-Start local OpenCode first:
+1. Install and configure `opencode` so it can talk to your model.
+2. Start OpenCode locally:
 
 ```bash
-opencode-claude serve --hostname 127.0.0.1 --port 4096
+opencode web --hostname 127.0.0.1 --port 4096
 ```
 
-Install repo dependencies:
+3. Install OpenClaw and make sure it loads plugins from `~/.openclaw/extensions`.
+
+## Development
+
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Invoke the local skill script manually:
+Run tests:
 
 ```bash
-node skills/opencode-local/scripts/invoke-opencode-local.mjs \
-  --conversation-id "demo-chat" \
-  --user-id "demo-user" \
-  --directory "$(pwd)" \
-  --text "Reply with exactly OK"
+npm test
 ```
 
-This V1 prototype is local-only and returns only the final plain-text reply.
+Run typecheck:
 
-## Learn More
+```bash
+npm run typecheck
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Runtime Install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Copy or sync `packages/opencode-local-plugin` into:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+~/.openclaw/extensions/opencode-local-plugin
+```
 
-## Deploy on Vercel
+The plugin manifest is:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+packages/opencode-local-plugin/openclaw.plugin.json
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The bundled skill prompt used by the plugin lives at:
+
+```text
+packages/opencode-local-plugin/skills/opencode-local/SKILL.md
+```
+
+## Configuration
+
+The plugin supports these config keys through OpenClaw:
+
+- `enabled`
+- `baseUrl`
+- `sessionStorePath`
+- `defaultDirectory`
+
+Default OpenCode base URL is `http://127.0.0.1:4096`.
